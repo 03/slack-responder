@@ -4,9 +4,8 @@ class SlackCommandsController < ApplicationController
 
   WHITELIST_TOKENS = [
     ENV["SLACK_WORK_COMMAND_TOKEN"],
-    ENV["SLACK_CREATE_CARD_COMMAND_TOKEN"],
-    ENV["SLACK_RETRO_COMMAND_TOKEN"],
-    ENV["SLACK_COPY_CARDS_COMMAND_TOKEN"]
+    ENV["SLACK_CARD_COMMAND_TOKEN"],
+    ENV["SLACK_RETRO_COMMAND_TOKEN"]
   ].compact
 
   def work
