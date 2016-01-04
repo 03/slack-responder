@@ -1,6 +1,6 @@
 class SlackCommandsController < ApplicationController
 
-  #before_filter :slash_command_auth
+  before_filter :slash_command_auth
 
   WHITELIST_TOKENS = [
     ENV["SLACK_WORK_COMMAND_TOKEN"],
@@ -34,7 +34,6 @@ class SlackCommandsController < ApplicationController
   def slash_command_auth
     puts 'HiHi'
     puts WHITELIST_TOKENS.inspect
-    render text: "Unauthorized", status: :unauthorized
     unless WHITELIST_TOKENS.include?(params[:token])
       render text: "Unauthorized", status: :unauthorized
     end
