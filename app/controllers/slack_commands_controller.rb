@@ -19,19 +19,18 @@ class SlackCommandsController < ApplicationController
   end
 
   def retro
-    puts "IN Retro"
-    puts params.inspect
+    #puts "IN Retro"
+    #puts params.inspect
+    #    begin
+    #  tr = SlackTrello::Commands::Retro.new(params, ENV["SLACK_WEBHOOK_URL"])
+    #  puts tr.inspect
+    #  response = tr.run
+    #rescue Exception => e  
+    #puts e.inspect
+     # puts "There was an error: #{e.message}"
+    #end
     
-    begin
-      tr = SlackTrello::Commands::Retro.new(params, ENV["SLACK_WEBHOOK_URL"])
-      puts tr.inspect
-      response = tr.run
-    rescue Exception => e  
-      puts e.inspect
-      puts "There was an error: #{e.message}"
-    end
-    
-    #response = SlackTrello::Commands::Retro.new(params, ENV["SLACK_WEBHOOK_URL"]).run
+    response = SlackTrello::Commands::Retro.new(params, ENV["SLACK_WEBHOOK_URL"]).run
     render text: response
   end
 
