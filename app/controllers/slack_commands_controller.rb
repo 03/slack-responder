@@ -42,7 +42,7 @@ class SlackCommandsController < ApplicationController
   private
 
   def slash_command_auth
-    puts 'HiHi'
+    puts 'Hello Slash!!'
     puts WHITELIST_TOKENS.inspect
     unless WHITELIST_TOKENS.include?(params[:token])
       render text: "Unauthorized", status: :unauthorized
