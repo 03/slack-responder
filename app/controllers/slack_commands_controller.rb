@@ -17,6 +17,8 @@ class SlackCommandsController < ApplicationController
   
   def work
     append_user_name
+    
+    params[:text] += " ** " + params[:user_name] + ""
     # e.g: /card (general today) what is new
     # /work (list_name)##(content)
     params[:text] = "(" + params[:channel_name] + " " + params[:text].split[0].strip[1,999] + ")" + params[:text].split[1].strip
@@ -65,7 +67,7 @@ class SlackCommandsController < ApplicationController
   
   def append_user_name
     # merge username into the topic
-    params[:text] += " <i> " + params[:user_name] + "</i>"
+    # params[:text] += " <i> " + params[:user_name] + "</i>"
   end
 
 end
