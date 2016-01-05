@@ -16,7 +16,9 @@ class SlackCommandsController < ApplicationController
   end
   
   def work
-    append_user_name
+    #append_user_name
+    
+    params[:text] += " -- " + params[:user_name]
     # e.g: /card (general today) what is new
     # /work (list_name)##(content)
     params[:text] = "(" + params[:channel_name] + " " + params[:text].split[0].strip[1,999] + ")" + params[:text].split[1].strip
@@ -56,7 +58,7 @@ class SlackCommandsController < ApplicationController
   private
 
   def slash_command_auth
-    puts 'Hello Sensei!!'
+    puts 'Hihi Sensei'
     puts WHITELIST_TOKENS.inspect
     unless WHITELIST_TOKENS.include?(params[:token])
       render text: "Unauthorized", status: :unauthorized
