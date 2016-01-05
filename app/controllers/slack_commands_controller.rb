@@ -19,7 +19,7 @@ class SlackCommandsController < ApplicationController
     
     # e.g: /card (general today) what is new
     # /work (list_name)##(content)
-    params[:text] = "(" + params[:channel_name] + " " + params[:text].split[0].strip[1,999] + ")" + params[:text].split[1].strip + " - <i>"  + params[:user_name] + "</i>"
+    params[:text] = "(" + params[:channel_name] + " " + params[:text].split[0].strip[1,999] + ")" + params[:text].split[1].strip + " - "  + params[:user_name] + ""
     puts params[:text].inspect
     #response = SlackTrello::Commands::Work.new(params, ENV["SLACK_WEBHOOK_URL"]).run
     response = SlackTrello::Commands::CreateCard.new(params, ENV["SLACK_WEBHOOK_URL"]).run
