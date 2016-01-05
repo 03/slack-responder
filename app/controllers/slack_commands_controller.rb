@@ -21,7 +21,12 @@ class SlackCommandsController < ApplicationController
   def retro
     puts "IN Retro"
     puts SlackTrello::Commands::Retro.inspect
-    response = SlackTrello::Commands::Retro.new(params, ENV["SLACK_WEBHOOK_URL"]).run
+    puts params.inspect
+    puts ENV["SLACK_WEBHOOK_URL"]
+    tr = SlackTrello::Commands::Retro.new(params, ENV["SLACK_WEBHOOK_URL"])
+    puts tr.inspect
+    response = tr.run
+    #response = SlackTrello::Commands::Retro.new(params, ENV["SLACK_WEBHOOK_URL"]).run
     render text: response
   end
 
