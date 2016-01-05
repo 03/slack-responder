@@ -27,6 +27,7 @@ class SlackCommandsController < ApplicationController
       puts tr.inspect
       response = tr.run
     rescue Exception => e  
+      puts e.inspect
       puts "There was an error: #{e.message}"
     end
     
