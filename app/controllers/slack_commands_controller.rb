@@ -22,7 +22,7 @@ class SlackCommandsController < ApplicationController
     # /work (list_name)##(content)
     prefix = ''
     prefix = params[:prefix] + '_' if params[:prefix]
-    params[:text] = "(" + prefix +params[:channel_name] + " " + params[:text].split[0].strip[1..-1] + ")" +  params[:text][params[:text].split[0].length+1..-1].join('_').strip + " - "  + params[:user_name] + ""
+    params[:text] = "(" + prefix +params[:channel_name] + " " + params[:text].split[0].strip[1..-1] + ")" +  params[:text][params[:text].split[0].length+1..-1].split.join('_').strip + " - "  + params[:user_name] + ""
     puts params[:text].inspect
     render text: 'test'
     #response = SlackTrello::Commands::Work.new(params, ENV["SLACK_WEBHOOK_URL"]).run
