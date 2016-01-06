@@ -25,6 +25,10 @@ class SlackCommandsController < ApplicationController
     # prefix: "Sensei"
     # e.g: /card (general today) what is new
     # /work (list_name)##(content)
+    unless /\#\w+/ =~ params[:text]
+      render text: 'Please specify List with \'\#\', i.e: #Good My new card'
+    end
+    
     params[:text] = "(" + prefix + params[:channel_name] + " " + params[:text].split[0].strip[1..-1] + ")" +  params[:text][params[:text].split[0].length..-1] + " - "  + params[:user_name] + ""
     puts params[:text].inspect
     response = SlackTrello::Commands::CreateCard.new(params, ENV["SLACK_WEBHOOK_URL"]).run
