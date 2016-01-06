@@ -16,40 +16,32 @@ class SlackCommandsController < ApplicationController
   end
   
   def work
-    
+    append_user_name
+    response = SlackTrello::Commands::Work.new(params, ENV["SLACK_WEBHOOK_URL"]).run
+    render text: response
+  end
+  
+  def create_card
     # prefix: "Sensei"
     # e.g: /card (general today) what is new
     # /work (list_name)##(content)
-    prefix = ''
-    prefix = params[:prefix] + '_' if params[:prefix]
     params[:text] = "(" + prefix + params[:channel_name] + " " + params[:text].split[0].strip[1..-1] + ")" +  params[:text][params[:text].split[0].length..-1] + " - "  + params[:user_name] + ""
-    puts '+++++++++++++++++++' + prefix
     puts params[:text].inspect
-    render text: 'test'
-    #response = SlackTrello::Commands::Work.new(params, ENV["SLACK_WEBHOOK_URL"]).run
-    #response = SlackTrello::Commands::CreateCard.new(params, ENV["SLACK_WEBHOOK_URL"]).run
-    #render text: response
+    response = SlackTrello::Commands::CreateCard.new(params, ENV["SLACK_WEBHOOK_URL"]).run
+    render text: response
   end
 
-  def create_card
+  def card
     append_user_name
     response = SlackTrello::Commands::CreateCard.new(params, ENV["SLACK_WEBHOOK_URL"]).run
     render text: response
   end
 
   def retro
-    #puts "IN Retro"
-    #puts params.inspect
-    #    begin
-    #  tr = SlackTrello::Commands::Retro.new(params, ENV["SLACK_WEBHOOK_URL"])
-    #  puts tr.inspect
-    #  response = tr.run
-    #rescue Exception => e  
-    #puts e.inspect
-     # puts "There was an error: #{e.message}"
-    #end
-    
-    response = SlackTrello::Commands::Retro.new(params, ENV["SLACK_WEBHOOK_URL"]).run
+    params[:text] = "(" + prefix + "Retrospective " + params[:text].split[0].strip[1..-1] + ")" +  params[:text][params[:text].split[0].length..-1] + " - "  + params[:user_name] + ""
+    puts params[:text].inspect
+    # response = SlackTrello::Commands::Retro.new(params, ENV["SLACK_WEBHOOK_URL"]).run
+    response = SlackTrello::Commands::CreateCard.new(params, ENV["SLACK_WEBHOOK_URL"]).run
     render text: response
   end
 
@@ -61,8 +53,7 @@ class SlackCommandsController < ApplicationController
   private
 
   def slash_command_auth
-    puts 'Hi Sensei'
-    # puts WHITELIST_TOKENS.inspect
+    # puts '+++ Hi Sensei ++tokens++' + WHITELIST_TOKENS.inspect
     unless WHITELIST_TOKENS.include?(params[:token])
       render text: "Unauthorized", status: :unauthorized
     end
@@ -70,7 +61,12 @@ class SlackCommandsController < ApplicationController
   
   def append_user_name
     # merge username into the topic
-    # params[:text] += " <i> " + params[:user_name] + "</i>"
+    params[:text] += " - " + params[:user_name] 
+  end
+  
+  def prefix
+    @prefix = ''
+    @prefix = params[:prefix] + '_' if params[:prefix]
   end
 
 end
