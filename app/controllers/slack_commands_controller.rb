@@ -76,7 +76,7 @@ class SlackCommandsController < ApplicationController
 
   def overwrite_channel_if_board_name_exists
     @channel_name = params[:channel_name]
-    @channel_name = params[:board_name] if params[:board_name]
+    @channel_name = params[:board] if params[:board]
     @channel_name
   end
 end
