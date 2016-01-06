@@ -28,7 +28,7 @@ class SlackCommandsController < ApplicationController
     # e.g: /card (general today) what is new
     # /work (list_name)##(content)
     unless /\#\w+/ =~ params[:text]
-      render text: 'Please specify List with \'#\', i.e: #Good Auto Deploy Tool is awesome'
+      render text: 'Please specify List with \'#\', i.e: #Good My smartwatch is really Awesome!!'
     else
       params[:text] = "(" + prefix + overwrite_channel_if_board_name_exists + " " + params[:text].split[0].strip[1..-1] + ")" +  params[:text][params[:text].split[0].length..-1] + " - "  + params[:user_name] + ""
       #puts params[:text].inspect
