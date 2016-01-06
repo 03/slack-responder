@@ -23,6 +23,7 @@ class SlackCommandsController < ApplicationController
     prefix = ''
     prefix = params[:prefix] + '_' if params[:prefix]
     params[:text] = "(" + prefix +params[:channel_name] + " " + params[:text].split[0].strip[1..-1] + ")" +  params[:text][params[:text].split[0].length+1..-1].split.join('_').strip + " - "  + params[:user_name] + ""
+    puts '+++++++++++++++++++'
     puts params[:text].inspect
     render text: 'test'
     #response = SlackTrello::Commands::Work.new(params, ENV["SLACK_WEBHOOK_URL"]).run
@@ -60,8 +61,8 @@ class SlackCommandsController < ApplicationController
   private
 
   def slash_command_auth
-    puts 'Hihi Sensei'
-    puts WHITELIST_TOKENS.inspect
+    puts 'Hi Sensei'
+    # puts WHITELIST_TOKENS.inspect
     unless WHITELIST_TOKENS.include?(params[:token])
       render text: "Unauthorized", status: :unauthorized
     end
