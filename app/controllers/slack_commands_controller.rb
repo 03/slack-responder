@@ -17,13 +17,17 @@ class SlackCommandsController < ApplicationController
   
   def work
     
+    # prefix: "Sensei"
     # e.g: /card (general today) what is new
     # /work (list_name)##(content)
-    params[:text] = "(" + params[:channel_name] + " " + params[:text].split[0].strip[1,999] + ")" + params[:text].split[1].strip + " - "  + params[:user_name] + ""
+    prefix = ''
+    prefix = params[:prefix] + '_' if params[:prefix]
+    params[:text] = "(" + prefix +params[:channel_name] + " " + params[:text].split[0].strip[1..-1] + ")" +  params[:text][params[:text].split[0].length+1..-1].join('_').strip + " - "  + params[:user_name] + ""
     puts params[:text].inspect
+    render text: 'test'
     #response = SlackTrello::Commands::Work.new(params, ENV["SLACK_WEBHOOK_URL"]).run
-    response = SlackTrello::Commands::CreateCard.new(params, ENV["SLACK_WEBHOOK_URL"]).run
-    render text: response
+    #response = SlackTrello::Commands::CreateCard.new(params, ENV["SLACK_WEBHOOK_URL"]).run
+    #render text: response
   end
 
   def create_card
