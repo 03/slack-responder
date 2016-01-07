@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   post "/slack/retro", :to => "slack_commands#retro"
   post "/slack/card", :to => "slack_commands#create_card"
   post "/slack/copy_cards", :to => "slack_commands#copy_cards"
+  
+  match 'health' => 'health#index'
 end
