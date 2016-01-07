@@ -1,4 +1,4 @@
-class HealthController < ActionController::Base
+class HealthController < ApplicationController
   def index
     @text_to_check = 'Slack-Responder-OK'
     @timestamp = Time.now
