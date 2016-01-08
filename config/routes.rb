@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   post "/slack/card", :to => "slack_commands#create_card"
   post "/slack/copy_cards", :to => "slack_commands#copy_cards"
   
-  get 'health' => 'health#index'
+  get 'health' => :to => 'health#index'
 end
