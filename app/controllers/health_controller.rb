@@ -4,6 +4,6 @@ class HealthController <  ActionController::Base
     @text_to_check = 'Slack-Responder-OK'
     @timestamp = Time.now
     
-    render text: @text_to_check + ' ' + @timestamp
+    render text: @text_to_check
   end
 end
